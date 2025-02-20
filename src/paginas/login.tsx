@@ -31,7 +31,7 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-      <h2 className="login-title">Login</h2> {/* Adicionando a classe "login-title" */}
+      <h2 className="login-title">Login</h2> 
         <div className="form-group">
           <label>Nome de usuário:</label>
           <input

@@ -1,24 +1,53 @@
-import { useState, useEffect } from 'react';
-import { ProdutosService } from '../servicos/api';
+import '../styles/produtos.css';
 
-export default function Produtos() {
-  const [produtos, setProdutos] = useState<{ id: number; title: string; }[]>([]);
+interface Produtos {
+  code: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
 
-  useEffect(() => {
-    ProdutosService.listar().then(setProdutos);
-  }, []);
+function App() {
+  const produtos: Produtos[] = [
+    { code: 'P001', name: 'Notebook', quantity: 5, price: 2499.99 },
+    { code: 'P002', name: 'Mouse', quantity: 15, price: 89.90 },
+    { code: 'P003', name: 'Teclado', quantity: 10, price: 159.90 },
+    { code: 'P004', name: 'Monitor', quantity: 8, price: 899.99 },
+    { code: 'P005', name: 'Headset', quantity: 12, price: 199.90 },
+  ];
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">Lista de Produtos</h1>
-      <ul className="space-y-2">
-        {produtos.map(produto => (
-          <li key={produto.id} className="p-2 border rounded">
-            <span className="font-bold mr-2">#{produto.id}</span>
-            {produto.title}
-          </li>
-        ))}
-      </ul>
+    <div className="produtos-container">
+      <div className="produtos-wrapper">
+        <h1 className="produtos-title">Lista de Produtos</h1>
+        <table className="produtos-table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {produtos.map((produto) => (
+              <tr key={produto.code}>
+                <td>{produto.code}</td>
+                <td>{produto.name}</td>
+                <td>{produto.quantity}</td>
+                <td>
+                  {produto.price.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
+
+export default App;
